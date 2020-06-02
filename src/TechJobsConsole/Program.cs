@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TechJobsConsole
 {
@@ -118,7 +119,42 @@ namespace TechJobsConsole
 
         private static void PrintJobs(List<Dictionary<string, string>> someJobs)
         {
-            Console.WriteLine("PrintJobs is not implemented yet");
+            string border = "*****";
+
+            if (someJobs.Count > 0) // Check if job listings exist if not, print no job listing
+            {
+                // Parse someJobs list[dictionary] into individual job dictionary objects.
+                foreach (Dictionary<string, string> job in someJobs)
+                {
+                    /* Create Job Listing Key to print out desired format of job listing,
+                     * also make sure to take into account of additional job desc fields being
+                     * added. Individual job desc keys were made in case the additional job desc
+                     * field to be added later is not implemented for all jobs */
+                    string[] jobDescKeys = new string[job.Count];
+                    jobDescKeys[0] = "position type";// Position type is first on the job listing
+                    int i = 1;
+                    foreach (KeyValuePair<string, string> jobDesc in job)
+                    {
+                        if (!(jobDescKeys.Contains(jobDesc.Key)))
+                        {
+                            jobDescKeys[i] = jobDesc.Key;
+                            i++;
+                        }
+                    }
+
+                    // Print out individual jobs
+                    Console.WriteLine("\n" + border);
+                    for (int j = 0; j < jobDescKeys.Length; j++)
+                    {
+                        Console.WriteLine(jobDescKeys[j] + ": " + job[jobDescKeys[j]]);
+                    }
+                    Console.WriteLine(border);
+                }
+            }
+            else
+            {
+                Console.WriteLine("There are no jobs currently matching that description.");
+            }
         }
     }
 }
