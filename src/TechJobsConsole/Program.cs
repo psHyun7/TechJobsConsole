@@ -44,6 +44,7 @@ namespace TechJobsConsole
                         List<string> results = JobData.FindAll(columnChoice);
 
                         Console.WriteLine("\n*** All " + columnChoices[columnChoice] + " Values ***");
+                        results.Sort(); //Alphabetize resulting list 
                         foreach (string item in results)
                         {
                             Console.WriteLine(item);
